@@ -4,6 +4,8 @@ const NoteModel = require("./models/note.modle.js");
 const cors = require("cors");
 
 app.use(cors());
+path = require("path");
+app.use(express.static("./public"));
 
 
 app.use(express.json()); // Middleware to parse JSON bodies
@@ -48,4 +50,12 @@ app.patch("/api/notes/:id", async (req, res) => {
     });
 });
 
+app.use('*name', (req, res) => {
+    res.sendFile(path.join(__dirname,".." ,'/public/index.html'));
+});
+
 module.exports = app;
+
+
+ 
+ 

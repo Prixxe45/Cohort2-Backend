@@ -16,6 +16,7 @@ html {
   display: flex;
   gap: 1rem;
   padding: 1rem;
+  flex-wrap: wrap;
 }
 .note{
   background-color: #494949;
@@ -23,4 +24,11 @@ html {
   border-radius: 0.7rem;
   max-width: 20rem;
   color: white;
+}
+.add-note-form{
+  display: flex;
+  gap: 1rem;
+  padding-inline: 3rem;
+  padding-block: 1rem;
+
 }
