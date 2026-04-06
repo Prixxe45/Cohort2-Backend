@@ -1,0 +1,8 @@
+For detailed explation see the authtication vidio recorded//
+
+#sabse phle folder banao
+
+#uske baad npm init commond run karo
+=>app.js
+=>server.js run a server
+=>config(connect with database)

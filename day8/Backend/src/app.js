@@ -18,7 +18,7 @@ app.post("/api/notes", async (req, res) => {
 
     res.status(201).json(note);
 });
-``
+
 app.get("/api/notes", async (req, res) => {
     const notes = await NoteModel.find();
     res.status(200).json({

@@ -1,0 +1,15 @@
+==>Authentication
+-register
+-login
+-logout(token blacklisting)
+-[otp based registration]
+
+==>Post
+-create
+-can see the feed
+-like posts(collection type)
+-save post
+
+==>Users
+-followers
+-following
