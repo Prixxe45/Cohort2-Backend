@@ -1,35 +1,38 @@
 import { useState } from "react";
 import "../style/form.scss";
 import { Link } from "react-router";
-import axios from "axios";
+import {useAuth} from "../hooks/useAuth.js"
+import { useNavigate } from "react-router";
+
 
 const Login = () => {
+  const {user, loading, handleLogin} = useAuth();
+
   const [username, setUsername] = useState("");
   const [password, setpassword] = useState("");
 
-  function handleSubmit(e) {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) =>{
     e.preventDefault();
 
-    axios
-      .post(
-        "http://localhost:3000/auth/login",
-        {
-          username,
-          password,
-        },
-        {
-          //for setuping cookies
-          withCredentials: true,
-        },
-      )
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    await handleLogin(username, password);
+    console.log("User Logged in Succesfully")
+
+    navigate("/");
+
+    if(loading){
+      return (
+        <main>
+          <h1>Loading...</h1>
+        </main>
+      );
+      
+    }
+
   }
 
+  
   return (
     <main>
       <div className="form-container">
@@ -51,7 +54,7 @@ const Login = () => {
             name="password"
             placeholder="EnterPassword"
           />
-          <button type="submit">Login</button>
+          <button className="primary-button" type="submit">Login</button>
         </form>
         <p>
           Don't have an account?{" "}

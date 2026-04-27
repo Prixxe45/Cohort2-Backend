@@ -20,4 +20,13 @@ postRouter.get("/details/:postId", identifyUser, postController.getPostById)
  */
 postRouter.post("/like/:postId", identifyUser, postController.likePostController)
 
+/**
+ * @route  /posts/feed
+ * @description` Fetch the feed of posts for the authenticated user.
+ * @access  Protected
+ */
+postRouter.get("/feed", identifyUser, postController.getFeedController)
+
+
+
 module.exports = postRouter;

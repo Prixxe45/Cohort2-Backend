@@ -1,30 +1,36 @@
 import { Link } from "react-router";
-import axios from "axios";
 import { useState } from "react";
+import { useAuth } from "../hooks/useAuth";
+import { useNavigate } from "react-router";
 
 const Register = () => {
+const {user, loading, handleRegister} = useAuth();
+
   const [username, setUsername] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+  
+const navigate = useNavigate();
 
   async function handleSubmit(e) {
 e.preventDefault();
 
-axios.post("http://localhost:3000/auth/register", {
-  username,
-  email,
-  password,
-},{
-  //for setuping cookies 
-  withCredentials: true,
-})
-.then((res) => {
-  console.log(res.data);
-})
-.catch((err) => {
-  console.error(err);
-});
+ await handleRegister(username, email, password);
+ console.log("User Registered Successfully");
 
+ navigate("/");
+
+ if (loading) {
+   return (
+     <main>
+       <h1>Loading...</h1>
+     </main>
+   );
+ }
+
+
+
+//ui layer direct kabhi bhi backend se interact nahi karega, isliye humne ek service banayi hai jiska kaam sirf backend se interact karna hai, aur hum ui layer se us service ko call karenge, isse humari code zyada modular aur maintainable banegi, aur agar future me hume backend ke saath interact karne ka tarika change karna pade to hume sirf service me change karna padega, ui layer me nahi
   }
 
   return (
@@ -33,7 +39,7 @@ axios.post("http://localhost:3000/auth/register", {
         <h1>Register</h1>
         <form onSubmit={handleSubmit} action="">
           <input
-            onChange={(e) => {
+            onInput={(e) => {
               setUsername(e.target.value);
             }}
             type="text"
@@ -41,7 +47,7 @@ axios.post("http://localhost:3000/auth/register", {
             placeholder="EnterUsername"
           />
           <input
-            onChange={(e) => {
+            onInput={(e) => {
               setemail(e.target.value);
             }}
             type="email"
@@ -49,7 +55,7 @@ axios.post("http://localhost:3000/auth/register", {
             placeholder="EnterEmail"
           />
           <input
-            onChange={(e) => {
+            onInput={(e) => {
               setpassword(e.target.value);
             }}
             type="password"
