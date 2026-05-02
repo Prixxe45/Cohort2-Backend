@@ -20,6 +20,8 @@ postRouter.get("/details/:postId", identifyUser, postController.getPostById)
  */
 postRouter.post("/like/:postId", identifyUser, postController.likePostController)
 
+postRouter.post("/unlike/:postId", identifyUser, postController.unlikePostController)
+
 /**
  * @route  /posts/feed
  * @description` Fetch the feed of posts for the authenticated user.

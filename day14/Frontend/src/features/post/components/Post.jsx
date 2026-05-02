@@ -1,6 +1,11 @@
 import React from 'react'
+import { usePost } from '../hook/usePost.js'
 
 const Post = ({userId, post}) => {
+
+const { handleLike, handleUnlike } = usePost();
+
+
   return (
     <div className="post">
       <div className="user">
@@ -20,6 +25,7 @@ const Post = ({userId, post}) => {
         <div className="left">
           <button>
             <svg
+              onClick={()=>{post.isLiked ? handleUnlike(post._id) : handleLike(post._id)}}
             className={post.isLiked ? "liked" : ""}
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -61,7 +67,7 @@ const Post = ({userId, post}) => {
       </div>
 
       <div className="bottom">
-        <p className="caption">Caption</p>
+        <p className="caption">{post.caption}</p>
       </div>
     </div>
   );

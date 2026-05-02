@@ -83,12 +83,33 @@ async function likePostController(req, res) {
   });
 }
 
+async function unlikePostController(req, res) {
+  const username = req.user.username;
+  const postId = req.params.postId;
+
+  const like = await likeModel.findOneAndDelete({
+    post: postId,
+    user: username,
+  });
+
+  if (!like) {
+    return res.status(400).json({
+      message: "Like not found",
+    });
+  }
+
+  res.status(200).json({
+    message: "Post unliked successfully",
+    like,
+  });
+}
+
 async function getFeedController(req, res) {
 
 const user = req.user;
 
   const posts = await Promise.all(
-    (await postModel.find().populate("userId").lean())
+    (await postModel.find().sort({ _id: -1 }).populate("userId").lean())
     .map(async (post) => {
       const isLiked = await likeModel.findOne({
         user: user.username,
@@ -111,5 +132,6 @@ module.exports = {
   getAllPosts,
   getPostById,
   likePostController,
+  unlikePostController,
   getFeedController,
 };
