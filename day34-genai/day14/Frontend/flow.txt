@@ -1,0 +1,12 @@
+=>UI Layer
+-ui dikhana user ko or navigate karna
+
+=>Hook
+manage state and api layer
+
+=>State
+-state manage karna like loding manage karna usrname post list error etc
+
+
+=>Api
+-backend se communicate karna
