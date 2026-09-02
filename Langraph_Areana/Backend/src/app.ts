@@ -21,8 +21,9 @@ app.get('/', async (req, res) => {
 
 app.post("/invoke", async (req, res) => {
 
-    const { input } = req.body
-    const result = await runGraph(input)
+    const { message } = req.body
+    console.log("Input received:", message)
+    const result = await runGraph(message)
 
     res.status(200).json({
         message: "Graph executed successfully",
